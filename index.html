@@ -104,14 +104,52 @@
         </div>
     </header>
     
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="container">
-            <h1>Soluções de Telecom para Empresas</h1>
-            <p>Conectividade de alta performance com tecnologia de ponta para empresas e provedores de internet</p>
-            <a href="contato.html" class="btn btn-primary">Solicitar Proposta</a>
+    <!-- Hero Section com Carrossel -->
+    <section class="hero-carousel">
+                    <!-- Slide 1 -->
+            <div class="carousel-slide active">
+                <img src="./public/assets/hero-business-professional.jpg" alt="Profissional de negócios" class="carousel-image">
+                <div class="carousel-overlay"></div>
+                <div class="carousel-content">
+                    <div class="container">
+                        <h1>Soluções Empresariais Personalizadas</h1>
+                        <p>As melhores Soluções Corporativas para sua empresa. Entre em contato com um de nossos consultores e faça um orçamento.</p>
+                        <a href="contato.html" class="btn btn-primary">Solicitar Orçamento</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Slide 2 -->
+            <div class="carousel-slide">
+                <img src="./public/assets/hero-technology-network.jpg" alt="Tecnologia e conectividade" class="carousel-image">
+                <div class="carousel-overlay"></div>
+                <div class="carousel-content">
+                    <div class="container">
+                        <h1>Conectividade de Alta Performance</h1>
+                        <p>Infraestrutura de fibra óptica própria com tecnologia de ponta para garantir máxima velocidade e estabilidade para seu negócio.</p>
+                        <a href="contato.html" class="btn btn-primary">Conheça Nossas Soluções</a>
+                    </div>
+                </div>
+            </div>
+        <!-- Controles do Carrossel -->
+        <button class="carousel-control prev" aria-label="Slide anterior">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" width="32" height="32">
+                <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+            </svg>
+        </button>
+        <button class="carousel-control next" aria-label="Próximo slide">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" width="32" height="32">
+                <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+            </svg>
+        </button>
+        
+        <!-- Indicadores -->
+        <div class="carousel-indicators">
+            <button class="indicator active" data-slide="0" aria-label="Ir para slide 1"></button>
+            <button class="indicator" data-slide="1" aria-label="Ir para slide 2"></button>
         </div>
     </section>
+    
     
     <!-- Vantagens -->
     <section class="advantages">

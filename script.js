@@ -66,6 +66,76 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     // ========================================
+    // CARROSSEL DO HERO
+    // ========================================
+    
+    const slides = document.querySelectorAll('.carousel-slide');
+    const indicators = document.querySelectorAll('.indicator');
+    const prevBtn = document.querySelector('.carousel-control.prev');
+    const nextBtn = document.querySelector('.carousel-control.next');
+    let currentSlide = 0;
+    let autoplayInterval;
+    
+    function showSlide(index) {
+        // Remover active de todos
+        slides.forEach(slide => slide.classList.remove('active'));
+        indicators.forEach(indicator => indicator.classList.remove('active'));
+        
+        // Adicionar active ao slide atual
+        slides[index].classList.add('active');
+        indicators[index].classList.add('active');
+    }
+    
+    function nextSlide() {
+        currentSlide = (currentSlide + 1) % slides.length;
+        showSlide(currentSlide);
+    }
+    
+    function prevSlide() {
+        currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+        showSlide(currentSlide);
+    }
+    
+    function startAutoplay() {
+        autoplayInterval = setInterval(nextSlide, 5000); // Troca a cada 5 segundos
+    }
+    
+    function stopAutoplay() {
+        clearInterval(autoplayInterval);
+    }
+    
+    // Event listeners dos controles
+    if (nextBtn) {
+        nextBtn.addEventListener('click', function() {
+            stopAutoplay();
+            nextSlide();
+            startAutoplay();
+        });
+    }
+    
+    if (prevBtn) {
+        prevBtn.addEventListener('click', function() {
+            stopAutoplay();
+            prevSlide();
+            startAutoplay();
+        });
+    }
+    
+    // Event listeners dos indicadores
+    indicators.forEach((indicator, index) => {
+        indicator.addEventListener('click', function() {
+            stopAutoplay();
+            currentSlide = index;
+            showSlide(currentSlide);
+            startAutoplay();
+        });
+    });
+    
+
+    
+
+
+    // ========================================
     // SMOOTH SCROLL
     // ========================================
     
@@ -190,7 +260,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     if (whatsappButton) {
         // Adicionar número de WhatsApp (substituir pelo número real)
-        const whatsappNumber = '5585988747575'; // Atualizar com número real
+        const whatsappNumber = '5585992312744'; // Atualizar com número real
         const whatsappMessage = encodeURIComponent('Olá! Gostaria de mais informações sobre os serviços da Bitnet.');
         
         whatsappButton.addEventListener('click', function() {
@@ -266,6 +336,75 @@ document.addEventListener('DOMContentLoaded', function() {
     
     console.log('%c🌐 Grupo Bitnet', 'color: #00D4FF; font-size: 20px; font-weight: bold;');
     console.log('%cMais que Internet, é Tecnologia', 'color: #9CA3AF; font-size: 14px;');
+
+    // ========================================
+    // VERIFICAR SE FORMULÁRIO FOI ENVIADO COM SUCESSO
+    // ========================================
+    
+    // Verificar parâmetro na URL para exibir mensagem de sucesso
+    const urlParams = new URLSearchParams(window.location.search);
+    const enviado = urlParams.get('enviado');
+    
+    if (enviado === 'sucesso') {
+        const successMessage = document.getElementById('successMessage');
+        if (successMessage) {
+            successMessage.style.display = 'block';
+            
+            // Remover parâmetro da URL sem recarregar a página
+            const newUrl = window.location.pathname;
+            window.history.replaceState({}, document.title, newUrl);
+            
+            // Ocultar mensagem após 8 segundos
+            setTimeout(() => {
+                successMessage.style.opacity = '0';
+                setTimeout(() => {
+                    successMessage.style.display = 'none';
+                    successMessage.style.opacity = '1';
+                }, 300);
+            }, 8000);
+        }
+    }
+    
+    // ========================================
+    // VALIDAÇÃO ADICIONAL DO FORMULÁRIO
+    // ========================================
+    
+    const leadForm = document.getElementById('leadForm');
+    
+    if (leadForm) {
+        leadForm.addEventListener('submit', function(e) {
+            // Validação básica antes do envio
+            const nome = this.nome.value.trim();
+            const telefone = this.telefone.value.trim();
+            const email = this.replyto.value.trim();
+            const empresa = this.empresa.value.trim();
+            const servico = this.servico.value;
+            
+            if (!nome || !telefone || !email || !empresa || !servico) {
+                e.preventDefault();
+                alert('Por favor, preencha todos os campos obrigatórios.');
+                return false;
+            }
+            
+            // Validação simples de email
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                e.preventDefault();
+                alert('Por favor, insira um e-mail válido.');
+                return false;
+            }
+            
+            // Desabilitar botão de envio para evitar duplo clique
+            const submitButton = this.querySelector('button[type="submit"]');
+            if (submitButton) {
+                submitButton.disabled = true;
+                submitButton.textContent = 'Enviando...';
+            }
+            
+            // O formulário será enviado normalmente para o formmail da KingHost
+            return true;
+        });
+    }
     
 });
 
